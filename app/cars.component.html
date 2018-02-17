@@ -1,0 +1,41 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        {{carPanelName}}
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-2">Filter By:</div>
+            <div class="col-md-2"><input type="text" [(ngModel)]="searchBy"/></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">Filtered By:{{searchBy}}</div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th><button class="btn btn-success" (click)="ShowImageClicked()">
+                        {{showImage ?"Hide Image":"Show Image"}}
+                    </button></th>
+                    <th>Id</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let car of cars|carfilter:searchBy">
+                        <td><img [src]="car.image" [style.width.px]="150" *ngIf="showImage"/></td>
+                        <td>{{car.id}}</td>
+                        <td><a [routerLink]="['/cars',car.id]"
+                            [queryParams]="{brand:car.brand, name:car.model, imgurl:car.image, desc:car.description}">{{car.brand|uppercase}}</a></td>
+                        <td>{{car.model|lowercase}}</td>
+                        <td>{{car.year}}</td>
+                        <td>{{car.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
